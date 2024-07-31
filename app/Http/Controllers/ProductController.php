@@ -12,16 +12,21 @@ class ProductController extends Controller
      */
     public function index()
     {
-        // Menampilkan semua product dengan menggunakan pagination
-        $products = \App\Models\Product::
-            paginate(7)->withQueryString();
+        $query = \App\Models\Product::query();
 
-        // Mengambil produk dengan join ke tabel kategori, mengurutkan berdasarkan kategori 'food' terlebih dahulu, dan mem-paginate hasil dengan 7 produk per halaman
-        // $products = \App\Models\Product::join('categories', 'products.category_id', '=', 'categories.id')
-        //     ->orderByRaw("CASE WHEN categories.name = 'food' THEN 0 ELSE 1 END")
-        //     ->select('products.*')
-        //     ->paginate(7)->withQueryString();
-        
+        if ($search = request()->get('search')) {
+            $query->where('name', 'LIKE', "%{$search}%")
+                  ->orWhere('price', 'LIKE', "%{$search}%")
+                  ->orWhere('stock', 'LIKe', "%{$search}%")
+                  ->orWhereHas('category', function($q) use ($search){
+                    $q->where('name', 'LIKE', "%{$search}%"); 
+                  });
+        }
+
+        // Menampilkan semua product dengan menggunakan pagination
+        $products = $query->paginate(7)->withQueryString();
+
+
         return view('admin.products.index', compact('products'));
     }
 
@@ -55,7 +60,7 @@ class ProductController extends Controller
         \App\Models\Product::create([
             'name' => $validatedData['name'],
             'category_id' => $validatedData['category_id'],
-            'price' => $validatedData['price'],
+        'price' => $validatedData['price'],
             'stock' => $validatedData['stock'],
             'image' => $imageFileName,
         ]);

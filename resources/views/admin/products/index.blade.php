@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => 'Products - MeowCafe'])
 
 @section('content')
     <main class="p-7 bg-backgroundPrimary min-h-screen w-full mt-[70px]">

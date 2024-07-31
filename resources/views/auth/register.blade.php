@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     @vite('resources/css/admin.css')
-    <title>Login Page</title>
+    <title>Register Page</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -16,8 +16,7 @@
 <body>
     <div class="h-screen bg-primary">
         <div
-        style="background-image: url('{{ asset('images/authBg.png') }}'); height: 100vh; width: 100%; background-size: cover; background-position: center; background-repeat: no-repeat; display: flex; justify-content: center; align-items: center; margin: 0; padding: 0;">
-        <div
+            class="bg-[{{ asset('images/authBg.png') }}] h-full bg-center bg-no-repeat flex justify-center items-center">
             <div
                 class="bg-white rounded-3xl min-w-[500px] py-[50px] px-[57px] flex flex-col text-center text-[#202224] font-semibold">
                 <p class="text-3xl font-bold">Login to Account</p>

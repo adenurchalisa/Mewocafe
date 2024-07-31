@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => 'Dashboard - MeowCafe'])
 
 @section('content')
     <main class="p-7 bg-backgroundPrimary min-h-screen w-full mt-[70px]">
@@ -72,4 +72,31 @@
 
 @push('scripts')
     @include('partials.chart')
+
+    {{-- <script>
+        $(document).ready(function() {
+            let lastKnownTimestamp =
+                {{ \App\Models\Order::where('payment_status', 'completed')->orderBy('updated_at', 'desc')->first()->updated_at->timestamp ?? 0 }};
+
+            function checkForDashboardUpdates() {
+                $.ajax({
+                    url: "{{ route('check-dashboard-updates') }}",
+                    type: "POST",
+                    data: {
+                        lastKnownTimestamp: lastKnownTimestamp,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function(response) {
+                        if (response.status) {
+                            location.reload();
+                        } else {
+                            setTimeout(checkForDashboardUpdates, 5000); // Cek lagi setelah 5 detik
+                        }
+                    }
+                });
+            }
+
+            setTimeout(checkForDashboardUpdates, 5000); // Mulai polling setelah 5 detik
+        });
+    </script> --}}
 @endpush

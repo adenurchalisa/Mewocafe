@@ -5,7 +5,7 @@
         gradient.addColorStop(0, "rgba(54, 162, 235, 0.5)");
         gradient.addColorStop(0.8, "rgba(54, 162, 235, 0)");
 
-        const salesData = @json(array_values($sales));
+        const salesData = @json(array_values($salesInMonth));
 
         // Mendapatkan tanggal saat ini
         const currentDate = new Date();
@@ -61,7 +61,7 @@
                                 if (label) {
                                     label += ": ";
                                 }
-                                label += parseFloat(context.raw).toFixed(2);
+                                label += parseFloat(context.raw).toFixed(0);
                                 return label;
                             },
                         },

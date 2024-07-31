@@ -11,9 +11,12 @@ use Alert;
 
 class LandingController extends Controller
 {
-    public function food(){
-        $products = Product::whereHas('category', function ($query) {
-            $query->where('name', 'Food');
+    public function index(Request $request)
+    {
+        $category = $request->get('category', 'Food'); // Default ke 'Food' jika tidak ada kategori yang diberikan
+
+        $products = Product::whereHas('category', function ($query) use ($category) {
+            $query->where('name', $category);
         })->paginate(6);
 
         $foodCount = Product::whereHas('category', function ($query) {
@@ -24,24 +27,10 @@ class LandingController extends Controller
             $query->where('name', 'Drink');
         })->count();
 
-        return view('landing.food', compact('products', 'foodCount', 'drinkCount'));
+        return view('landing.food', compact('products', 'foodCount', 'drinkCount', 'category'));
     }
 
-    public function drink(){
-        $products = Product::whereHas('category', function ($query) {
-            $query->where('name', 'Drink');
-        })->paginate(6);
-
-        $drinkCount = Product::whereHas('category', function ($query) {
-            $query->where('name', 'Drink');
-        })->count();
-
-        $foodCount = Product::whereHas('category', function ($query) {
-            $query->where('name', 'Food');
-        })->count();
-
-        return view('landing.drink', compact('products', 'foodCount', 'drinkCount'));
-    }
+    
 
     public function createOrder(Request $request)
     {

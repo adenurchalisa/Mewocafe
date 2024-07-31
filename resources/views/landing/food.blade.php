@@ -29,17 +29,17 @@
 				<aside class="min-h-full p-6 mt-6 bg-white w-72 rounded-xl">
 					<p class="font-bold">Category</p>
 					<div class="flex flex-col mt-4 gap-y-1">
-						<a href="{{ route('home') }}"
-							class="flex justify-between px-4 py-3 font-bold rounded bg-primary/20 text-primary"
+						<a href="{{ route('home', ['category' => 'Food']) }}"
+							class="flex justify-between px-4 py-3 {{ request()->get('category') === 'Food' || !request()->has('category') && request()->path() === '/' ? 'font-bold rounded bg-primary/20 text-primary' : 'font-semibold rounded text-textPrimary'}}"
 						>
 							<div>
 								<i class="mr-3 ri-restaurant-line"></i>
 								<span>Food</span>
 							</div>
-							<span class="text-primary/80">{{ $foodCount }}</span>
+							<span class="text-textPrimary/60">{{ $foodCount }}</span>
 						</a>
-						<a href="{{ route('drink') }}"
-							class="flex justify-between px-4 py-3 font-semibold rounded text-textPrimary"
+						<a href="{{ route('home', ['category' => 'Drink']) }}"
+							class="flex justify-between px-4 py-3 font-semibold rounded text-textPrimary {{ request()->get('category') === 'Drink' ? 'font-bold rounded bg-primary/20 text-primary' : 'font-semibold rounded text-textPrimary' }}"
 						>
 							<div>
 								<i class="mr-3 ri-goblet-line"></i>
